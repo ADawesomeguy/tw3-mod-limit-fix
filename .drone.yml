@@ -23,5 +23,3 @@ steps:
     files:
       - modlimitfix
       - modlimitfix.exe
-  when:
-    event: tag
