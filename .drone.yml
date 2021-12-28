@@ -1,0 +1,27 @@
+---
+name: default
+kind: pipeline
+type: docker
+
+steps:
+- name: build
+  image: debian
+  commands:
+  - apt-get update
+  - apt-get upgrade -y
+  - apt-get install zip -y
+  - apt-get install g++-mingw-w64-x86-64 -y
+  - ./build-linux.sh
+  - ./build-win.sh
+
+- name: release
+  image: plugins/gitea-release
+  settings:
+    api_key:
+      from_secret: gitea_token
+    base_url: https://git.adawesome.tech
+    files:
+      - modlimitfix
+      - modlimitfix.exe
+  when:
+    event: tag
