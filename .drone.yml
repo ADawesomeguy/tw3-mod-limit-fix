@@ -10,8 +10,8 @@ steps:
   - apt-get update
   - apt-get upgrade -y
   - apt-get install zip -y
-  - apt-get install gcc-mingw-w64-x86-64 -y
-  - apt-get install gcc -y
+  - apt-get install g++-mingw-w64-x86-64 -y
+  - apt-get install g++ -y
   - ./build-linux.sh
   - ./build-win.sh
 
