@@ -1,2 +1,2 @@
 #!/bin/bash
-g++ main.cpp -o modlimitfix --std=c++17
+gcc main.cpp -o modlimitfix -lstdc++ --std=c++17
