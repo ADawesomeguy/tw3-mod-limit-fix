@@ -22,7 +22,6 @@ steps:
       from_secret: gitea_token
     base_url: https://git.adawesome.tech
     files:
-      - modlimitfix
-      - modlimitfix.exe
+      - bin/*
   when:
     event: tag

@@ -1,2 +1,3 @@
 #!/bin/bash
-g++ main.cpp -o modlimitfix --std=c++17
+mkdir -p bin/
+g++ main.cpp -o bin/modlimitfix --std=c++17
