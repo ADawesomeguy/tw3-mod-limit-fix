@@ -13,7 +13,7 @@ static const uint64_t address_already_patched = 1;
 static const uint64_t check_range_start = 0xB94000;
 static const uint64_t check_range_end = 0xB98000;
 static const uint64_t patch_offset_in_sequence = 1;
-static const uint32_t patched_limit = 500;
+uint32_t patched_limit = 500;
 
 static const std::vector<uint64_t> known_candidates{0xB95CF6, 0xB96366,
                                                     0xB967A6, 0xB95E56};
@@ -60,12 +60,27 @@ uint64_t find_patch_address(const std::vector<uint8_t> &search_buffer) {
 }
 
 int main() {
+  freopen("modlimitfix.conf", "r", stdin);
+  uint32_t mod_limit;
+  bool using_conf = false;
+  cin >> mod_limit;
+  if (mod_limit) {
+    patched_limit = mod_limit;
+    using_conf = true;
+  }
+  if (using_conf) {
+    cout << "Using configuration for mod limit value..." << endl;
+  } else {
+    cout << "Using defaults for mod limit values..." << endl;
+  }
+  cout << "Patching with a limit of " << patched_limit << "..." << endl;
   auto path = fs::absolute(fs::current_path() / "witcher3.exe");
 
   if (!fs::exists(path)) {
     cout << "Could not find witcher3.exe file, make sure you are running this "
          << "in the bin/x64 directory." << endl;
-    cout << "Please press ENTER or close the window to terminate the program" << endl;
+    cout << "Please press ENTER or close the window to terminate the program"
+         << endl;
     cin.get();
     return 0;
   }
@@ -80,7 +95,8 @@ int main() {
     if (file.eof() ||
         !file.read(reinterpret_cast<char *>(search_buffer.data()), read_size)) {
       cout << "witcher3.exe is unexpectedly small, aborting patching." << endl;
-      cout << "Please press ENTER or close the window to terminate the program" << endl;
+      cout << "Please press ENTER or close the window to terminate the program"
+           << endl;
       cin.get();
       return 0;
     }
@@ -90,13 +106,16 @@ int main() {
 
   if (patch_address == address_not_found) {
     cout << "Did not find the address to patch, possibly an unexpected version "
-            "of executable. Contact sedmelluq and give him your exe." << endl;
-    cout << "Please press ENTER or close the window to terminate the program" << endl;
+            "of executable. Contact sedmelluq and give him your exe."
+         << endl;
+    cout << "Please press ENTER or close the window to terminate the program"
+         << endl;
     cin.get();
     return 0;
   } else if (patch_address == address_already_patched) {
     cout << "It seems the executable is already patched" << endl;
-    cout << "Please press ENTER or close the window to terminate the program" << endl;
+    cout << "Please press ENTER or close the window to terminate the program"
+         << endl;
     cin.get();
     return 0;
   }
@@ -105,13 +124,17 @@ int main() {
 
   if (fs::exists(backup_path)) {
     cout << "Backup file witcher3.exe.orig already exists. Rename it or delete "
-            "it (might be left over from previous patch attempt)." << endl;
-    cout << "Please press ENTER or close the window to terminate the program" << endl;
+            "it (might be left over from previous patch attempt)."
+         << endl;
+    cout << "Please press ENTER or close the window to terminate the program"
+         << endl;
     cin.get();
     return 0;
   } else if (!fs::copy_file(path, backup_path)) {
-    cout << "Failed to create backup file, try running as administrator." << endl;
-    cout << "Please press ENTER or close the window to terminate the program" << endl;
+    cout << "Failed to create backup file, try running as administrator."
+         << endl;
+    cout << "Please press ENTER or close the window to terminate the program"
+         << endl;
     cin.get();
     return 0;
   }
@@ -129,7 +152,8 @@ int main() {
       cout << "Successfully patched." << endl;
     }
   }
-  cout << "Please press ENTER or close the window to terminate the program" << endl;
+  cout << "Please press ENTER or close the window to terminate the program"
+       << endl;
   cin.get();
   return 0;
 }
