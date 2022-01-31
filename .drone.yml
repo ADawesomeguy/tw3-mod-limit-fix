@@ -5,7 +5,7 @@ type: docker
 
 steps:
 - name: build
-  image: debian
+  image: debian:stable-slim
   commands:
   - apt-get update
   - apt-get upgrade -y
