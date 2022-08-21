@@ -61,11 +61,10 @@ uint64_t find_patch_address(const std::vector<uint8_t> &search_buffer) {
 
 int main() {
   ifstream ifs("modlimitfix.conf");
-  uint32_t mod_limit;
   bool using_conf = false;
-  ifs >> mod_limit;
-  if (mod_limit) {
-    patched_limit = mod_limit;
+  if (ifs) {
+    //patched_limit = mod_limit;
+    ifs >> patched_limit;
     using_conf = true;
   }
   if (using_conf) {
