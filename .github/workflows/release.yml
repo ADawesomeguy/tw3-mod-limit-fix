@@ -68,5 +68,5 @@ jobs:
         with:
           draft: true
           generateReleaseNotes: true
-          artifacts: "modlimitfix,modlimitfix.exe"
+          artifacts: "linux-release/modlimitfix,windows-release/modlimitfix.exe"
           token: ${{ secrets.GITHUB_TOKEN }}
