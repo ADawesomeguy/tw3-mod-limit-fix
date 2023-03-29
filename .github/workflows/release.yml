@@ -45,8 +45,8 @@ jobs:
         uses: ashutoshvarma/setup-ninja@v1.1
 
       - name: Configure CMake
-        #run: cmake -G "Visual Studio 17 2022" -B build
-        run: cmake -G "Ninja" -B build
+        run: cmake -G "Visual Studio 17 2022" -B build
+        #run: cmake -G "Ninja" -B build
 
       - name: Build
         run: cmake --build build
