@@ -41,11 +41,11 @@ jobs:
         with:
           submodules: true
 
-      - name: Setup Ninja
-        uses: ashutoshvarma/setup-ninja@v1.1
+      #- name: Setup Ninja
+      #  uses: ashutoshvarma/setup-ninja@v1.1
 
       - name: Configure CMake
-        run: cmake -G "Visual Studio 17 2022" -B build
+        run: cmake -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Release -B build
         #run: cmake -G "Ninja" -B build
 
       - name: Build
@@ -54,7 +54,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: windows-release
-          path: build/modlimitfix.exe
+          path: build/Release/modlimitfix.exe
 
   release:
     runs-on: ubuntu-latest
